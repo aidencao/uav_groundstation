@@ -363,16 +363,33 @@ void MainWindow::on_planner_start_clicked()
     system(command.toLatin1());
 }
 
-void MainWindow::on_tags_start_clicked()
+void MainWindow::on_tags_start_clicked(bool checked)
 {
-    ROS_INFO("MainWindow::on_tags_start_clicked");
-    //拼接终端命令
-    QString command = "gnome-terminal -x bash -c 'source ~/.bashrc;roslaunch uav_landing April_tag_camera.launch;'";
-    system(command.toLatin1());
-    command = "gnome-terminal -x bash -c 'rqt_image_view;'";
-    system(command.toLatin1());
-    command = "gnome-terminal -x bash -c 'source ~/.bashrc;rosrun uav_landing listener_tags_together.py;'";
-    system(command.toLatin1());
+    if (checked)
+    {
+        ROS_INFO("MainWindow::on_tags_start_clicked");
+        //拼接终端命令
+        // QString command = "gnome-terminal -x bash -c 'source ~/.bashrc;roslaunch uav_landing April_tag_camera.launch;'";
+        QString command = "roslaunch uav_landing April_tag_camera.launch &";
+        system(command.toLatin1());
+        // command = "gnome-terminal -x bash -c 'rqt_image_view;'";
+        command = "rqt_image_view &";
+        system(command.toLatin1());
+        // command = "gnome-terminal -x bash -c 'source ~/.bashrc;rosrun uav_landing listener_tags_together.py;'";
+        command = "rosrun uav_landing listener_tags_together.py &";
+        system(command.toLatin1());
+    }
+    else
+    {
+        ROS_INFO("MainWindow::on_tags_start_released");
+        QString command = "rosnode kill /usb_cam;rosnode kill /apriltag_ros_continuous_node;rosnode kill /listener_node";
+        system(command.toLatin1());
+        // command = "gnome-terminal -x bash -c 'rqt_image_view;'";
+        command = "rosnode kill $(rosnode list | grep rqt_gui_cpp_node)";
+        system(command.toLatin1());
+        command = "killall rqt_image_view";
+        system(command.toLatin1());
+    }
 }
 
 void MainWindow::on_landing_start_clicked()

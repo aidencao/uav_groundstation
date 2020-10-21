@@ -55,9 +55,10 @@ private slots:
     void on_loadMap_clicked();
 
     void on_planner_start_clicked();
-    void on_tags_start_clicked();
+    void on_tags_start_clicked(bool checked);
     void on_landing_start_clicked();
     void on_rviz_start_clicked();
+
 private:
     Ui::MainWindow *ui;
     //int timerId;//定时器id

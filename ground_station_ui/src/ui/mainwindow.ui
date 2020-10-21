@@ -33,7 +33,7 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="basic_control">
           <attribute name="title">
@@ -729,6 +729,9 @@ Odom Quat Z:</string>
             </property>
             <property name="text">
              <string>启动二维码识别</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
             </property>
            </widget>
            <widget class="QPushButton" name="landing_start">

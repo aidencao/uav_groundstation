@@ -6,6 +6,8 @@
 RosTopicSendRecv::RosTopicSendRecv(QObject *parent)
     : QThread(parent)
 {
+    nh.param("ui_main/dir", map_dir, std::string("/home/cyr/nav_ws/src/publish_pointcloud/data"));
+
     //ros publisher,要放到构造函数，如果放到run，可能线程还没起，但可能因为按键被调用了
     takeoff_pub = nh.advertise<std_msgs::Bool>("/uav_take_off", 1);
     land_pub = nh.advertise<std_msgs::Bool>("/uav_land", 1);

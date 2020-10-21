@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <launch>
         <node pkg="ground_station_ui" type="ui_main" name="ui_main" output="screen">
+                <param name="dir" value="$(find publish_pointcloud)/data" />
         </node>
         <include file="$(find uav_communication)/launch/uav_communication.launch" />
 </launch>

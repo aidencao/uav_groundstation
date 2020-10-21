@@ -72,6 +72,7 @@ public:
     ros::Subscriber lidar_nav_rel_pos_sub;
     ros::Subscriber lidar_nav_computed_vel_sub;
     ros::Subscriber lidar_nav_odom_sub;
+    std::string map_dir;
     void log_info_sub_callback(const std_msgs::String::ConstPtr& ros_msg);
     void gps_info_sub_callback(const sensor_msgs::NavSatFix::ConstPtr& ros_msg); 
     void gps_health_sub_callback(const std_msgs::UInt8::ConstPtr& ros_msg);

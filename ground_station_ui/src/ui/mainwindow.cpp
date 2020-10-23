@@ -79,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui->uavw->setValidator(new QRegExpValidator(doubleRegx, ui->uavw));
     ui->uavh->setValidator(new QRegExpValidator(doubleRegx, ui->uavh));
     ui->box_size->setValidator(new QRegExpValidator(doubleRegx, ui->box_size));
-
+    ui->uav_hight->setValidator(new QRegExpValidator(doubleRegx, ui->uav_hight));
     //文本颜色
     ui->loadMap_warn->setStyleSheet("color:red");
 }
@@ -436,6 +436,13 @@ void MainWindow::on_record_end_clicked()
 //     command = command + end;
 //     system(command.toLatin1());
 // }
+
+void MainWindow::on_set_height_clicked()
+{
+    ROS_INFO("MainWindow::on_set_height_clicked");
+    double height = ui->uav_hight->text().toDouble();
+    pRosTopicThreadHander->pub_set_height_by_move_cmd(height);
+}
 
 void MainWindow::on_tags_start_clicked(bool checked)
 {

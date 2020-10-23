@@ -34,6 +34,7 @@ public:
     void pub_vision_land_start_cmd();
     void pub_record_start_cmd();
     void pub_record_end_cmd();
+    void pub_set_height_by_move_cmd(double height);
 protected:
     void run();
 
@@ -65,6 +66,7 @@ private:
     ros::Publisher vision_land_start_pub;
     ros::Publisher record_map_start_pub;
     ros::Publisher record_map_end_pub;
+    ros::Publisher set_height_by_move_pub;
 public:    
     //subscribe
     ros::Subscriber log_info_sub;

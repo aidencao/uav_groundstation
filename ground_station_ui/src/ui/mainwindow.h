@@ -57,6 +57,7 @@ private slots:
     void on_record_end_clicked();
 
     // void on_planner_start_clicked();
+    void on_set_height_clicked();
     void on_tags_start_clicked(bool checked);
     void on_landing_start_clicked();
     // void on_rviz_start_clicked();

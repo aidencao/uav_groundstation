@@ -23,6 +23,7 @@ RosTopicSendRecv::RosTopicSendRecv(QObject *parent)
     vision_land_start_pub = nh.advertise<std_msgs::Bool>("/qt_landing_start", 1);
     record_map_start_pub = nh.advertise<std_msgs::Bool>("/record_map_start", 1);
     record_map_end_pub = nh.advertise<std_msgs::Bool>("/record_map_end", 1);
+    set_height_by_move_pub = nh.advertise<std_msgs::Float64>("/set_uav_height_by_move", 1);
 
     //ros subscriber,放到构造函数或run里初始化都是可以的
     log_info_sub = nh.subscribe("/uav_log_info", 2, &RosTopicSendRecv::log_info_sub_callback, this);
@@ -141,6 +142,13 @@ void RosTopicSendRecv::pub_record_end_cmd()
     std_msgs::Bool ros_msg;
     ros_msg.data = true;
     record_map_end_pub.publish(ros_msg);
+}
+
+void RosTopicSendRecv::pub_set_height_by_move_cmd(double height)
+{
+    std_msgs::Float64 ros_msg;
+    ros_msg.data = height;
+    set_height_by_move_pub.publish(ros_msg);
 }
 ////////////////////////////////////////////////////////////////////////////
 //  callback

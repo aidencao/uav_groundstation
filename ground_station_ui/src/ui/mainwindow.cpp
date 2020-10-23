@@ -375,55 +375,67 @@ void MainWindow::on_loadMap_clicked()
     system(command.toLatin1());
 }
 
-void MainWindow::on_planner_start_clicked()
+void MainWindow::on_record_start_clicked()
 {
-    ROS_INFO("MainWindow::on_planner_start_clicked");
-    //拼接终端命令
-    QString command = "gnome-terminal -x bash -c 'source ~/.bashrc;roslaunch path_planner path_planner_qt.launch";
-    QString end = ";'";
-    QString resolution = ui->octoResolution->text();
-    if (!resolution.isNull() && !resolution.isEmpty())
-    {
-        command = command + " resolution:=" + resolution;
-    }
-    QString step_range = ui->step_range->text();
-    if (!step_range.isNull() && !step_range.isEmpty())
-    {
-        command = command + " step_range:=" + step_range;
-    }
-    QString bound_xy = ui->bound_xy->text();
-    if (!bound_xy.isNull() && !bound_xy.isEmpty())
-    {
-        command = command + " bound_xy:=" + bound_xy;
-    }
-    QString bound_highz = ui->bound_highz->text();
-    if (!bound_highz.isNull() && !bound_highz.isEmpty())
-    {
-        command = command + " bound_highz:=" + bound_highz;
-    }
-    QString bound_lowz = ui->bound_lowz->text();
-    if (!bound_lowz.isNull() && !bound_lowz.isEmpty())
-    {
-        command = command + " bound_lowz:=" + bound_lowz;
-    }
-    QString uavl = ui->uavl->text();
-    if (!uavl.isNull() && !uavl.isEmpty())
-    {
-        command = command + " uavl:=" + uavl;
-    }
-    QString uavw = ui->uavw->text();
-    if (!uavw.isNull() && !uavw.isEmpty())
-    {
-        command = command + " uavw:=" + uavw;
-    }
-    QString uavh = ui->uavh->text();
-    if (!uavh.isNull() && !uavh.isEmpty())
-    {
-        command = command + " uavh:=" + uavh;
-    }
-    command = command + end;
-    system(command.toLatin1());
+    ROS_INFO("pRosTopicThreadHander->on_record_start_clicked()");
+    pRosTopicThreadHander->pub_record_start_cmd();
 }
+
+void MainWindow::on_record_end_clicked()
+{
+    ROS_INFO("pRosTopicThreadHander->on_record_end_clicked()");
+    pRosTopicThreadHander->pub_record_end_cmd();
+}
+
+// void MainWindow::on_planner_start_clicked()
+// {
+//     ROS_INFO("MainWindow::on_planner_start_clicked");
+//     //拼接终端命令
+//     QString command = "gnome-terminal -x bash -c 'source ~/.bashrc;roslaunch path_planner path_planner_qt.launch";
+//     QString end = ";'";
+//     QString resolution = ui->octoResolution->text();
+//     if (!resolution.isNull() && !resolution.isEmpty())
+//     {
+//         command = command + " resolution:=" + resolution;
+//     }
+//     QString step_range = ui->step_range->text();
+//     if (!step_range.isNull() && !step_range.isEmpty())
+//     {
+//         command = command + " step_range:=" + step_range;
+//     }
+//     QString bound_xy = ui->bound_xy->text();
+//     if (!bound_xy.isNull() && !bound_xy.isEmpty())
+//     {
+//         command = command + " bound_xy:=" + bound_xy;
+//     }
+//     QString bound_highz = ui->bound_highz->text();
+//     if (!bound_highz.isNull() && !bound_highz.isEmpty())
+//     {
+//         command = command + " bound_highz:=" + bound_highz;
+//     }
+//     QString bound_lowz = ui->bound_lowz->text();
+//     if (!bound_lowz.isNull() && !bound_lowz.isEmpty())
+//     {
+//         command = command + " bound_lowz:=" + bound_lowz;
+//     }
+//     QString uavl = ui->uavl->text();
+//     if (!uavl.isNull() && !uavl.isEmpty())
+//     {
+//         command = command + " uavl:=" + uavl;
+//     }
+//     QString uavw = ui->uavw->text();
+//     if (!uavw.isNull() && !uavw.isEmpty())
+//     {
+//         command = command + " uavw:=" + uavw;
+//     }
+//     QString uavh = ui->uavh->text();
+//     if (!uavh.isNull() && !uavh.isEmpty())
+//     {
+//         command = command + " uavh:=" + uavh;
+//     }
+//     command = command + end;
+//     system(command.toLatin1());
+// }
 
 void MainWindow::on_tags_start_clicked(bool checked)
 {
@@ -460,19 +472,19 @@ void MainWindow::on_landing_start_clicked()
     pRosTopicThreadHander->pub_vision_land_start_cmd();
 }
 
-void MainWindow::on_rviz_start_clicked()
-{
-    ROS_INFO("MainWindow::on_rviz_start_clicked()");
-    //拼接终端命令
-    QString command = "gnome-terminal -x bash -c 'source ~/.bashrc;roslaunch gps_mapping gps_mapping_qt.launch";
-    QString end = ";'";
-    //各个参数
-    QString box_size = ui->box_size->text();
-    if (!box_size.isNull() && !box_size.isEmpty())
-    {
-        command = command + " box_size:=" + box_size;
-    }
+// void MainWindow::on_rviz_start_clicked()
+// {
+//     ROS_INFO("MainWindow::on_rviz_start_clicked()");
+//     //拼接终端命令
+//     QString command = "gnome-terminal -x bash -c 'source ~/.bashrc;roslaunch gps_mapping gps_mapping_qt.launch";
+//     QString end = ";'";
+//     //各个参数
+//     QString box_size = ui->box_size->text();
+//     if (!box_size.isNull() && !box_size.isEmpty())
+//     {
+//         command = command + " box_size:=" + box_size;
+//     }
 
-    command = command + end;
-    system(command.toLatin1());
-}
+//     command = command + end;
+//     system(command.toLatin1());
+// }

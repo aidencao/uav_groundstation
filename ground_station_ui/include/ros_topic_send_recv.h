@@ -32,6 +32,8 @@ public:
     void pub_resetMaxVelocity_cmd(double vel);
     void pub_change_flight_mode_cmd(UINT8 mode);
     void pub_vision_land_start_cmd();
+    void pub_record_start_cmd();
+    void pub_record_end_cmd();
 protected:
     void run();
 
@@ -61,6 +63,8 @@ private:
     ros::Publisher reset_lidar_nav_max_vel_pub;
     ros::Publisher change_lidar_nav_flight_mode_pub;
     ros::Publisher vision_land_start_pub;
+    ros::Publisher record_map_start_pub;
+    ros::Publisher record_map_end_pub;
 public:    
     //subscribe
     ros::Subscriber log_info_sub;

@@ -21,6 +21,8 @@ RosTopicSendRecv::RosTopicSendRecv(QObject *parent)
     reset_lidar_nav_max_vel_pub = nh.advertise<std_msgs::Float64>("/lidar_nav_set_max_vel", 1);
     change_lidar_nav_flight_mode_pub = nh.advertise<std_msgs::UInt8>("/lidar_nav_change_mode", 1);
     vision_land_start_pub = nh.advertise<std_msgs::Bool>("/qt_landing_start", 1);
+    record_map_start_pub = nh.advertise<std_msgs::Bool>("/record_map_start", 1);
+    record_map_end_pub = nh.advertise<std_msgs::Bool>("/record_map_end", 1);
 
     //ros subscriber,放到构造函数或run里初始化都是可以的
     log_info_sub = nh.subscribe("/uav_log_info", 2, &RosTopicSendRecv::log_info_sub_callback, this);
@@ -127,6 +129,19 @@ void RosTopicSendRecv::pub_vision_land_start_cmd()
     vision_land_start_pub.publish(ros_msg);
 }
 
+void RosTopicSendRecv::pub_record_start_cmd()
+{
+    std_msgs::Bool ros_msg;
+    ros_msg.data = true;
+    record_map_start_pub.publish(ros_msg);
+}
+
+void RosTopicSendRecv::pub_record_end_cmd()
+{
+    std_msgs::Bool ros_msg;
+    ros_msg.data = true;
+    record_map_end_pub.publish(ros_msg);
+}
 ////////////////////////////////////////////////////////////////////////////
 //  callback
 ////////////////////////////////////////////////////////////////////////////

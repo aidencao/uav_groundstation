@@ -33,7 +33,7 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="basic_control">
           <attribute name="title">
@@ -839,8 +839,8 @@ Odom Quat Z:</string>
           <widget class="QPushButton" name="loadMap">
            <property name="geometry">
             <rect>
-             <x>20</x>
-             <y>420</y>
+             <x>200</x>
+             <y>290</y>
              <width>89</width>
              <height>25</height>
             </rect>
@@ -1035,8 +1035,8 @@ Odom Quat Z:</string>
           <widget class="QLabel" name="loadMap_warn">
            <property name="geometry">
             <rect>
-             <x>110</x>
-             <y>420</y>
+             <x>290</x>
+             <y>290</y>
              <width>231</width>
              <height>17</height>
             </rect>
@@ -1354,25 +1354,12 @@ Odom Quat Z:</string>
             </property>
            </widget>
           </widget>
-          <widget class="QPushButton" name="planner_start">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>360</y>
-             <width>101</width>
-             <height>25</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>启动路径规划</string>
-           </property>
-          </widget>
           <widget class="QGroupBox" name="groupBox_8">
            <property name="geometry">
             <rect>
              <x>20</x>
              <y>260</y>
-             <width>241</width>
+             <width>171</width>
              <height>61</height>
             </rect>
            </property>
@@ -1426,12 +1413,31 @@ Odom Quat Z:</string>
              <bool>false</bool>
             </property>
            </widget>
-           <widget class="QPushButton" name="rviz_start">
+          </widget>
+          <widget class="QGroupBox" name="groupBox_10">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>350</y>
+             <width>171</width>
+             <height>61</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="title">
+            <string>录制地图</string>
+           </property>
+           <widget class="QPushButton" name="record_start">
             <property name="geometry">
              <rect>
-              <x>170</x>
+              <x>10</x>
               <y>30</y>
-              <width>51</width>
+              <width>71</width>
               <height>25</height>
              </rect>
             </property>
@@ -1442,7 +1448,26 @@ Odom Quat Z:</string>
              </font>
             </property>
             <property name="text">
-             <string>启动</string>
+             <string>开始录制</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="record_end">
+            <property name="geometry">
+             <rect>
+              <x>90</x>
+              <y>30</y>
+              <width>71</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>结束录制</string>
             </property>
            </widget>
           </widget>

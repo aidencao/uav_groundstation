@@ -52,7 +52,7 @@ private slots:
     //loadmap
     void on_select_file_clicked();
 
-    void on_loadMap_clicked();
+    void on_loadMap_clicked(bool checked);
     void on_record_start_clicked();
     void on_record_end_clicked();
 

@@ -272,107 +272,121 @@ void MainWindow::on_select_file_clicked()
     }
 }
 
-void MainWindow::on_loadMap_clicked()
+void MainWindow::on_loadMap_clicked(bool checked)
 {
-    ROS_INFO("MainWindow::on_loadMap_clicked");
-    ui->loadMap_warn->setText("");
+    if (checked)
+    {
+        ROS_INFO("MainWindow::on_loadMap_clicked");
+        ui->loadMap_warn->setText("");
 
-    QString path = ui->mapPath->text();
-    if (path.isNull() || path.isEmpty())
-    {
-        ui->loadMap_warn->setText("路径不能为空");
-        return;
-    }
+        QString path = ui->mapPath->text();
+        if (path.isNull() || path.isEmpty())
+        {
+            ui->loadMap_warn->setText("路径不能为空");
+            return;
+        }
 
-    QString end = " &";
+        QString end = " &";
 
-    //拼接octomap_server终端命令
-    QString command = "roslaunch publish_pointcloud octomap_server.launch";
-    //各个参数
-    QString resolution = ui->octoResolution->text();
-    if (!resolution.isNull() && !resolution.isEmpty())
-    {
-        command = command + " resolution:=" + resolution;
-    }
-    QString max_range = ui->max_range->text();
-    if (!max_range.isNull() && !max_range.isEmpty())
-    {
-        command = command + " max_range:=" + max_range;
-    }
-    QString max_z = ui->max_z->text();
-    if (!max_z.isNull() && !max_z.isEmpty())
-    {
-        command = command + " max_z:=" + max_z;
-    }
-    QString min_z = ui->min_z->text();
-    if (!min_z.isNull() && !min_z.isEmpty())
-    {
-        command = command + " min_z:=" + min_z;
-    }
-    // octo_server_command = octo_server_command + end;
-    // system(octo_server_command.toLatin1());
+        //拼接octomap_server终端命令
+        QString command = "roslaunch publish_pointcloud octomap_server.launch";
+        //各个参数
+        QString resolution = ui->octoResolution->text();
+        if (!resolution.isNull() && !resolution.isEmpty())
+        {
+            command = command + " resolution:=" + resolution;
+        }
+        QString max_range = ui->max_range->text();
+        if (!max_range.isNull() && !max_range.isEmpty())
+        {
+            command = command + " max_range:=" + max_range;
+        }
+        QString max_z = ui->max_z->text();
+        if (!max_z.isNull() && !max_z.isEmpty())
+        {
+            command = command + " max_z:=" + max_z;
+        }
+        QString min_z = ui->min_z->text();
+        if (!min_z.isNull() && !min_z.isEmpty())
+        {
+            command = command + " min_z:=" + min_z;
+        }
+        // octo_server_command = octo_server_command + end;
+        // system(octo_server_command.toLatin1());
 
-    //拼接planner终端命令
-    // QString path_planner_command = "roslaunch path_planner path_planner_qt.launch";
-    // if (!resolution.isNull() && !resolution.isEmpty())
-    // {
-    //     path_planner_command = path_planner_command + " resolution:=" + resolution;
-    // }
-    QString step_range = ui->step_range->text();
-    if (!step_range.isNull() && !step_range.isEmpty())
-    {
-        command = command + " step_range:=" + step_range;
-    }
-    QString bound_xy = ui->bound_xy->text();
-    if (!bound_xy.isNull() && !bound_xy.isEmpty())
-    {
-        command = command + " bound_xy:=" + bound_xy;
-    }
-    QString bound_highz = ui->bound_highz->text();
-    if (!bound_highz.isNull() && !bound_highz.isEmpty())
-    {
-        command = command + " bound_highz:=" + bound_highz;
-    }
-    QString bound_lowz = ui->bound_lowz->text();
-    if (!bound_lowz.isNull() && !bound_lowz.isEmpty())
-    {
-        command = command + " bound_lowz:=" + bound_lowz;
-    }
-    QString uavl = ui->uavl->text();
-    if (!uavl.isNull() && !uavl.isEmpty())
-    {
-        command = command + " uavl:=" + uavl;
-    }
-    QString uavw = ui->uavw->text();
-    if (!uavw.isNull() && !uavw.isEmpty())
-    {
-        command = command + " uavw:=" + uavw;
-    }
-    QString uavh = ui->uavh->text();
-    if (!uavh.isNull() && !uavh.isEmpty())
-    {
-        command = command + " uavh:=" + uavh;
-    }
-    // path_planner_command = path_planner_command + end;
-    // system(path_planner_command.toLatin1());
+        //拼接planner终端命令
+        // QString path_planner_command = "roslaunch path_planner path_planner_qt.launch";
+        // if (!resolution.isNull() && !resolution.isEmpty())
+        // {
+        //     path_planner_command = path_planner_command + " resolution:=" + resolution;
+        // }
+        QString step_range = ui->step_range->text();
+        if (!step_range.isNull() && !step_range.isEmpty())
+        {
+            command = command + " step_range:=" + step_range;
+        }
+        QString bound_xy = ui->bound_xy->text();
+        if (!bound_xy.isNull() && !bound_xy.isEmpty())
+        {
+            command = command + " bound_xy:=" + bound_xy;
+        }
+        QString bound_highz = ui->bound_highz->text();
+        if (!bound_highz.isNull() && !bound_highz.isEmpty())
+        {
+            command = command + " bound_highz:=" + bound_highz;
+        }
+        QString bound_lowz = ui->bound_lowz->text();
+        if (!bound_lowz.isNull() && !bound_lowz.isEmpty())
+        {
+            command = command + " bound_lowz:=" + bound_lowz;
+        }
+        QString uavl = ui->uavl->text();
+        if (!uavl.isNull() && !uavl.isEmpty())
+        {
+            command = command + " uavl:=" + uavl;
+        }
+        QString uavw = ui->uavw->text();
+        if (!uavw.isNull() && !uavw.isEmpty())
+        {
+            command = command + " uavw:=" + uavw;
+        }
+        QString uavh = ui->uavh->text();
+        if (!uavh.isNull() && !uavh.isEmpty())
+        {
+            command = command + " uavh:=" + uavh;
+        }
+        // path_planner_command = path_planner_command + end;
+        // system(path_planner_command.toLatin1());
 
-    //拼接gps_mapping终端命令
-    // QString gps_mapping_command = "roslaunch gps_mapping gps_mapping_qt.launch";
-    //各个参数
-    QString box_size = ui->box_size->text();
-    if (!box_size.isNull() && !box_size.isEmpty())
+        //拼接gps_mapping终端命令
+        // QString gps_mapping_command = "roslaunch gps_mapping gps_mapping_qt.launch";
+        //各个参数
+        QString box_size = ui->box_size->text();
+        if (!box_size.isNull() && !box_size.isEmpty())
+        {
+            command = command + " box_size:=" + box_size;
+        }
+
+        // gps_mapping_command = gps_mapping_command + end;
+        // system(gps_mapping_command.toLatin1());
+
+        //拼接地图发送终端命令
+        // QString command = "roslaunch publish_pointcloud publish_map.launch";
+        command = command + " path:=" + path;
+        command = command + end;
+        system(command.toLatin1());
+    }else
     {
-        command = command + " box_size:=" + box_size;
+        ROS_INFO("MainWindow::on_loadMap_released");
+        QString command = "rosnode kill /path_planner_node;rosnode kill /octomap_server;rosnode kill /gps_mapping_node";
+        system(command.toLatin1());
+        // command = "gnome-terminal -x bash -c 'rqt_image_view;'";
+        command = "rosnode kill $(rosnode list | grep rviz)";
+        system(command.toLatin1());
+        command = "killall rviz";
+        system(command.toLatin1());
     }
-
-    // gps_mapping_command = gps_mapping_command + end;
-    // system(gps_mapping_command.toLatin1());
-
-    //拼接地图发送终端命令
-    // QString command = "roslaunch publish_pointcloud publish_map.launch";
-    command = command + " path:=" + path;
-    command = command + end;
-    system(command.toLatin1());
+    
 }
 
 void MainWindow::on_record_start_clicked()

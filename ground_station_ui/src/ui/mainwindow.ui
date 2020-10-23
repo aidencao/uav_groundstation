@@ -33,7 +33,7 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="basic_control">
           <attribute name="title">
@@ -872,6 +872,9 @@ Odom Quat Z:</string>
            </property>
            <property name="text">
             <string>加载地图</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
           <widget class="QGroupBox" name="groupBox_7">

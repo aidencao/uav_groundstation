@@ -62,9 +62,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     pRosTopicThreadHander->start();
 
     //控制输入值
-    QRegExp doubleRegx("[0-9.0-9]*");                  //非负小数
-    QRegExp posRegx("^[0-9]*$");                       //非负整数
-    QRegExp intRegx("^(0|[1-9][0-9]*|-[1-9][0-9]*)$"); //整数
+    QRegExp doubleRegx("[0-9.0-9]*");                      //非负小数
+    QRegExp posRegx("^[0-9]*$");                           //非负整数
+    QRegExp intRegx("^(0|[1-9][0-9]*|-[1-9][0-9]*)$");     //整数
+    QRegExp alldoubleRegx("^(-?[0-9])|(-?\\d+)(\.\\d+)$"); //小数
 
     ui->octoResolution->setValidator(new QRegExpValidator(doubleRegx, ui->octoResolution));
     ui->max_range->setValidator(new QRegExpValidator(posRegx, ui->max_range));
@@ -80,8 +81,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui->uavh->setValidator(new QRegExpValidator(doubleRegx, ui->uavh));
     ui->box_size->setValidator(new QRegExpValidator(doubleRegx, ui->box_size));
     ui->uav_hight->setValidator(new QRegExpValidator(doubleRegx, ui->uav_hight));
+    ui->point_x->setValidator(new QRegExpValidator(alldoubleRegx, ui->point_x));
+    ui->point_y->setValidator(new QRegExpValidator(alldoubleRegx, ui->point_y));
+    ui->point_z->setValidator(new QRegExpValidator(alldoubleRegx, ui->point_z));
     //文本颜色
     ui->loadMap_warn->setStyleSheet("color:red");
+    ui->setPoint_warn->setStyleSheet("color:red");
 }
 
 MainWindow::~MainWindow()
@@ -375,7 +380,8 @@ void MainWindow::on_loadMap_clicked(bool checked)
         command = command + " path:=" + path;
         command = command + end;
         system(command.toLatin1());
-    }else
+    }
+    else
     {
         ROS_INFO("MainWindow::on_loadMap_released");
         QString command = "rosnode kill /path_planner_node;rosnode kill /octomap_server;rosnode kill /gps_mapping_node";
@@ -386,7 +392,6 @@ void MainWindow::on_loadMap_clicked(bool checked)
         command = "killall rviz";
         system(command.toLatin1());
     }
-    
 }
 
 void MainWindow::on_record_start_clicked()
@@ -509,3 +514,29 @@ void MainWindow::on_landing_start_clicked()
 //     command = command + end;
 //     system(command.toLatin1());
 // }
+
+void MainWindow::on_set_point_clicked()
+{
+    ROS_INFO("pRosTopicThreadHander->on_set_point_clicked()");
+    ui->setPoint_warn->setText("");
+    QString x = ui->point_x->text();
+    if (x.isNull() || x.isEmpty())
+    {
+        ui->setPoint_warn->setText("坐标不全");
+        return;
+    }
+    QString y = ui->point_y->text();
+    if (y.isNull() || y.isEmpty())
+    {
+        ui->setPoint_warn->setText("坐标不全");
+        return;
+    }
+    QString z = ui->point_z->text();
+    if (z.isNull() || z.isEmpty())
+    {
+        ui->setPoint_warn->setText("坐标不全");
+        return;
+    }
+
+    pRosTopicThreadHander->pub_set_point_cmd(x.toDouble(),y.toDouble(),z.toDouble());
+}

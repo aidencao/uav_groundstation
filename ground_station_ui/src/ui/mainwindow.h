@@ -61,6 +61,7 @@ private slots:
     void on_tags_start_clicked(bool checked);
     void on_landing_start_clicked();
     // void on_rviz_start_clicked();
+    void on_set_point_clicked();
 
 private:
     Ui::MainWindow *ui;

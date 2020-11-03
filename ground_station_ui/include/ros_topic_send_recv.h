@@ -18,8 +18,8 @@ class RosTopicSendRecv : public QThread
 {
     Q_OBJECT
 public:
-    RosTopicSendRecv(QObject *parent = nullptr);    
-    virtual ~RosTopicSendRecv();    
+    RosTopicSendRecv(QObject *parent = nullptr);
+    virtual ~RosTopicSendRecv();
     void pub_takeoff_cmd();
     void pub_land_cmd();
     void pub_haltManifold_cmd();
@@ -35,6 +35,8 @@ public:
     void pub_record_start_cmd();
     void pub_record_end_cmd();
     void pub_set_height_by_move_cmd(double height);
+    void pub_set_point_cmd(double x, double y, double z);
+
 protected:
     void run();
 
@@ -48,10 +50,10 @@ signals:
     void LidarNavRelPosSignal(const geometry_msgs::PointStamped pos);
     void LidarNavComputedVelSignal(const geometry_msgs::Vector3Stamped vel);
     void LidarNavOdomSignal(const nav_msgs::Odometry odom);
-    
+
 private:
     ros::NodeHandle nh;
-    //publisher   
+    //publisher
     ros::Publisher takeoff_pub;
     ros::Publisher land_pub;
     ros::Publisher gohome_pub;
@@ -67,7 +69,9 @@ private:
     ros::Publisher record_map_start_pub;
     ros::Publisher record_map_end_pub;
     ros::Publisher set_height_by_move_pub;
-public:    
+    ros::Publisher set_point_pub;
+
+public:
     //subscribe
     ros::Subscriber log_info_sub;
     ros::Subscriber gps_health_sub;
@@ -79,15 +83,15 @@ public:
     ros::Subscriber lidar_nav_computed_vel_sub;
     ros::Subscriber lidar_nav_odom_sub;
     std::string map_dir;
-    void log_info_sub_callback(const std_msgs::String::ConstPtr& ros_msg);
-    void gps_info_sub_callback(const sensor_msgs::NavSatFix::ConstPtr& ros_msg); 
-    void gps_health_sub_callback(const std_msgs::UInt8::ConstPtr& ros_msg);
-    void height_above_takeoff_sub_callback(const std_msgs::Float32::ConstPtr& ros_msg);
-    void uav_vel_sub_callback(const geometry_msgs::Vector3Stamped::ConstPtr& ros_msg);
-    void uav_local_pos_sub_callback(const geometry_msgs::PointStamped::ConstPtr& ros_msg);
-    void lidar_nav_rel_pos_sub_callback(const geometry_msgs::PointStamped::ConstPtr& ros_msg);
-    void lidar_nav_computed_vel_sub_callback(const geometry_msgs::Vector3Stamped::ConstPtr& ros_msg);
-    void lidar_nav_odom_info_callback(const nav_msgs::Odometry::ConstPtr& ros_msg);
+    void log_info_sub_callback(const std_msgs::String::ConstPtr &ros_msg);
+    void gps_info_sub_callback(const sensor_msgs::NavSatFix::ConstPtr &ros_msg);
+    void gps_health_sub_callback(const std_msgs::UInt8::ConstPtr &ros_msg);
+    void height_above_takeoff_sub_callback(const std_msgs::Float32::ConstPtr &ros_msg);
+    void uav_vel_sub_callback(const geometry_msgs::Vector3Stamped::ConstPtr &ros_msg);
+    void uav_local_pos_sub_callback(const geometry_msgs::PointStamped::ConstPtr &ros_msg);
+    void lidar_nav_rel_pos_sub_callback(const geometry_msgs::PointStamped::ConstPtr &ros_msg);
+    void lidar_nav_computed_vel_sub_callback(const geometry_msgs::Vector3Stamped::ConstPtr &ros_msg);
+    void lidar_nav_odom_info_callback(const nav_msgs::Odometry::ConstPtr &ros_msg);
 };
 
 #endif

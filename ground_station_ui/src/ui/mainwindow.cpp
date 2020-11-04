@@ -538,5 +538,41 @@ void MainWindow::on_set_point_clicked()
         return;
     }
 
-    pRosTopicThreadHander->pub_set_point_cmd(x.toDouble(),y.toDouble(),z.toDouble());
+    pRosTopicThreadHander->pub_set_point_cmd(x.toDouble(), y.toDouble(), z.toDouble());
+}
+void MainWindow::on_go_point_clicked()
+{
+    ROS_INFO("pRosTopicThreadHander->on_go_point_clicked()");
+    ui->setPoint_warn->setText("");
+    QString x = ui->point_x->text();
+    if (x.isNull() || x.isEmpty())
+    {
+        ui->setPoint_warn->setText("坐标不全");
+        return;
+    }
+    QString y = ui->point_y->text();
+    if (y.isNull() || y.isEmpty())
+    {
+        ui->setPoint_warn->setText("坐标不全");
+        return;
+    }
+    QString z = ui->point_z->text();
+    if (z.isNull() || z.isEmpty())
+    {
+        ui->setPoint_warn->setText("坐标不全");
+        return;
+    }
+
+    //获取定位数据
+    QStringList list = ui->odomPosLbl->text().split("\n");
+    if (list.at(0).split(":").at(1) == "")
+    {
+        ui->setPoint_warn->setText("无定位数据");
+        return;
+    }
+    double originx = list.at(0).split(":").at(1).toDouble();
+    double originy = list.at(1).split(":").at(1).toDouble();
+    double originz = list.at(2).split(":").at(1).toDouble();
+
+    pRosTopicThreadHander->pub_go_point_cmd(x.toDouble(), y.toDouble(), z.toDouble(), originx, originy, originz);
 }

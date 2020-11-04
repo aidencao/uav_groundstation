@@ -36,6 +36,7 @@ public:
     void pub_record_end_cmd();
     void pub_set_height_by_move_cmd(double height);
     void pub_set_point_cmd(double x, double y, double z);
+    void pub_go_point_cmd(double x, double y, double z, double ox, double oy, double oz);
 
 protected:
     void run();
@@ -70,6 +71,7 @@ private:
     ros::Publisher record_map_end_pub;
     ros::Publisher set_height_by_move_pub;
     ros::Publisher set_point_pub;
+    ros::Publisher go_point_pub;
 
 public:
     //subscribe

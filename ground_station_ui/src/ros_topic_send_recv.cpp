@@ -2,6 +2,7 @@
 #include <std_msgs/Bool.h>
 #include <std_msgs/Float64.h>
 #include <geometry_msgs/PoseStamped.h>
+#include <nav_msgs/Path.h>
 #include <functional>
 
 RosTopicSendRecv::RosTopicSendRecv(QObject *parent)
@@ -26,6 +27,7 @@ RosTopicSendRecv::RosTopicSendRecv(QObject *parent)
     record_map_end_pub = nh.advertise<std_msgs::Bool>("/record_map_end", 1);
     set_height_by_move_pub = nh.advertise<std_msgs::Float64>("/set_uav_height_by_move", 1);
     set_point_pub = nh.advertise<geometry_msgs::PoseStamped>("/goal", 1);
+    go_point_pub = nh.advertise<nav_msgs::Path>("/xyz/path", 1);
 
     //ros subscriber,放到构造函数或run里初始化都是可以的
     log_info_sub = nh.subscribe("/uav_log_info", 2, &RosTopicSendRecv::log_info_sub_callback, this);
@@ -162,6 +164,28 @@ void RosTopicSendRecv::pub_set_point_cmd(double x, double y, double z)
     ros_msg.pose.position.y = y;
     ros_msg.pose.position.z = z;
     set_point_pub.publish(ros_msg);
+}
+
+void RosTopicSendRecv::pub_go_point_cmd(double x, double y, double z, double ox, double oy, double oz)
+{
+    nav_msgs::Path ros_msg;
+    ros_msg.header.stamp = ros::Time::now();
+    ros_msg.header.frame_id = "map";
+
+    //生成原始点
+    geometry_msgs::PoseStamped origin;
+    origin.pose.position.x = ox;
+    origin.pose.position.y = oy;
+    origin.pose.position.z = oz;
+    ros_msg.poses.push_back(origin);
+
+    //生成目标点
+    geometry_msgs::PoseStamped goal;
+    goal.pose.position.x = x;
+    goal.pose.position.y = y;
+    goal.pose.position.z = z;
+    ros_msg.poses.push_back(goal);
+    go_point_pub.publish(ros_msg);
 }
 ////////////////////////////////////////////////////////////////////////////
 //  callback

@@ -63,6 +63,8 @@ private slots:
     // void on_rviz_start_clicked();
     void on_set_point_clicked();
 
+    void on_go_point_clicked();
+
 private:
     Ui::MainWindow *ui;
     //int timerId;//定时器id
